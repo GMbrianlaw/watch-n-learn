@@ -19,25 +19,24 @@
     {% if view_user is none() %}
 
         <main>
+
             <h2>No Username with Username</h2>
+
         </main>
 
     {% else %}
 
         <main>
+
             <h2>{{ view_user.username }}</h2>
 
             {% if view_user.posts %}
                 {% for post in view_user.posts[:8] %}
-
                     <a href="/view/{{ post.id_ }}">{{ post.title }}</a>
                     <br>
-
                 {% endfor %}
             {% else %}
-
                 <p>{{ view_user.username }} has no posts</p>
-
             {% endif %}
 
         </main>

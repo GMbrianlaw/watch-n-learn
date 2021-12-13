@@ -19,20 +19,26 @@
     {% if post is none() %}
 
         <main>
+
             <h2>Post doesn't exist</h2>
+
         </main>
 
     {% else %}
 
         <main>
+
             <h2>{{ post.title }}</h2>
+
             <b>
                 By:
                 <a href="/user/{{ post.user.username }}">
                     {{ post.user.username }}
                 </a>
             </b>
+
             <p>{{ post.content }}</p>
+
         </main>
 
     {% endif %}
