@@ -16,7 +16,7 @@ from watch_n_learn.helper.template import flash
 
 ALLOWED_NAME_CHARACTERS = frozenset(ascii_letters + " ")
 
-ALLOWED_USERNAME_CHARACTERS = frozenset(ascii_letters + digits)
+ALLOWED_USERNAME_CHARACTERS = frozenset(ascii_letters + digits+_punctuation+"_")
 
 _punctuation = punctuation
 
@@ -92,7 +92,7 @@ async def register(request: Request) -> RedirectResponse:
 
     for character in username_:
         if character not in ALLOWED_USERNAME_CHARACTERS:
-            flash(request, "Username can only contain characters and digits")
+            flash(request, "Username can only contain characters, digits, punctuation, and the '_' character")
             return RedirectResponse("/register", HTTPStatus.FOUND)
 
     for character in password:
