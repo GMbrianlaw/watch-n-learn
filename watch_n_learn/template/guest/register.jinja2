@@ -1,0 +1,41 @@
+{% extends "base.jinja2" %}
+
+{% block title %}
+
+    <title>Register</title>
+
+{% endblock title %}
+
+{% block main %}
+
+    <main>
+
+        <h2>Register</h2>
+
+        <br>
+
+        <form action="/internal/register" method="post">
+            <label for="name">Full Name (6 to 32 numeric characters):</label>
+            <input id="name" name="name">
+            <br>
+            <label for="username">
+                Username (6 to 32 alphanumeric characters):
+            </label>
+            <input id="username" name="username">
+            <br>
+            <label for="password">
+                Password (6 to 32 alphanumeric characters):
+            </label>
+            <input id="password" type="password" name="password">
+            <br>
+            <label for="confirm_password">Confirm Password:</label>
+            <input
+                id="confirm_password" type="password" name="confirm_password"
+            >
+            <br>
+            <input type="submit" value="Register">
+        </form>
+
+    </main>
+
+{% endblock main %}

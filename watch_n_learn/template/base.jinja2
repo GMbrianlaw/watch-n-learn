@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <link
+            rel="shortcut icon" href="/static/image/favicon.ico"
+            type="image/x-icon"
+        >
+
+        <link rel="stylesheet" href="/static/css/base.css">
+
+        <script src="/static/javascript/base.js"></script>
+
+        {% block title %}
+        {% endblock title %}
+
+    </head>
+
+    <body>
+
+        <header>
+            <nav>
+                <a href="/">Home</a>
+                {% if user is defined() %}
+                    <a href="/explore">Explore</a>
+                    <a href="/post">Post</a>
+                    <a href="/sign-out">Sign Out</a>
+                {% else %}
+                    <a href="/register">Register</a>
+                    <a href="/sign-in">Sign In</a>
+                {% endif %}
+            </nav>
+            <div>
+                {% for message in get_flashed_messages(request) %}
+                    <p>
+                        {{ message }}
+                        <span onclick="removeMessage(this);">&times;</span>
+                    </p>
+                {% endfor %}
+            </div>
+        </header>
+
+        {% block main %}
+        {% endblock main %}
+
+    </body>
+
+</html>

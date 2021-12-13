@@ -1,0 +1,22 @@
+{% extends "base.jinja2" %}
+
+{% block title %}
+
+    <title>Explore</title>
+
+{% endblock title %}
+
+{% block main %}
+
+    <main>
+
+        <h2>Explore</h2>
+
+        {% for post in recent_posts %}
+            <a href="/view/{{ post.id_ }}">{{ post.title }}</a>
+            <br>
+        {% endfor %}
+
+    </main>
+
+{% endblock main %}

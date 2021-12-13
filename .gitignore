@@ -1,0 +1,7 @@
+**/__pycache__/
+
+/venv/
+
+database.sqlite3
+
+environment.txt
