@@ -1,5 +1,11 @@
 {% extends "base.jinja2" %}
 
+{% block css %}
+
+    <link rel="stylesheet" href="/static/css/user/view.css">
+
+{% endblock css %}
+
 {% block title %}
 
     {% if post is none() %}
@@ -37,7 +43,7 @@
                 </a>
             </b>
 
-            <p>{{ post.content }}</p>
+            <p id="content">{{ post.content }}</p>
 
         </main>
 

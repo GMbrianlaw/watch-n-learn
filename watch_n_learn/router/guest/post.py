@@ -1,6 +1,6 @@
 from contextlib import contextmanager
 from http import HTTPStatus
-from string import ascii_letters, digits, punctuation
+from string import ascii_letters, ascii_lowercase, digits, punctuation
 
 from bcrypt import checkpw, gensalt, hashpw
 from fastapi.concurrency import contextmanager_in_threadpool
@@ -11,12 +11,13 @@ from fastapi.routing import APIRouter
 from watch_n_learn.authentication.main import get_user, load_user, login_manager
 from watch_n_learn.database.main import create_session
 from watch_n_learn.database.models import User
+from watch_n_learn.helper.environment import WATCH_N_LEARN_PEPPER
 from watch_n_learn.helper.parse import body_as_json
 from watch_n_learn.helper.template import flash
 
 ALLOWED_NAME_CHARACTERS = frozenset(ascii_letters + " ")
 
-ALLOWED_USERNAME_CHARACTERS = frozenset(ascii_letters + digits)
+ALLOWED_USERNAME_CHARACTERS = frozenset(ascii_lowercase + digits + "_")
 
 _punctuation = punctuation
 
@@ -49,7 +50,9 @@ async def sign_in(request: Request) -> RedirectResponse:
 
     if user_ is None:
         flash(request, "Username not found")
-    elif not checkpw(password.encode("utf-8"), user_.hashed_password):
+    elif not checkpw(
+        (password + WATCH_N_LEARN_PEPPER).encode("utf-8"), user_.hashed_password
+    ):
         flash(request, "Incorrect password")
     else:
         flash(request, "You have signed in")
@@ -92,7 +95,13 @@ async def register(request: Request) -> RedirectResponse:
 
     for character in username_:
         if character not in ALLOWED_USERNAME_CHARACTERS:
-            flash(request, "Username can only contain characters and digits")
+            flash(
+                request,
+                (
+                    "Username can only contain lowercase characters, digits and"
+                    "punctuation"
+                )
+            )
             return RedirectResponse("/register", HTTPStatus.FOUND)
 
     for character in password:
@@ -107,6 +116,7 @@ async def register(request: Request) -> RedirectResponse:
         flash(request, "Full Name should be between 6 and 32 characters")
     elif not 6 <= len(username_) <= 16:
         flash(request, "Username should be between 6 and 16 characters")
+    # 72 is max for secure Bcrypt, 32 (pepper) + 32 (password) is fine
     elif not 6 <= len(password) <= 32:
         flash(request, "Password should be between 6 and 32 characters")
     elif body.get("confirm_password") != password:
@@ -123,7 +133,8 @@ async def register(request: Request) -> RedirectResponse:
                     User(
                         name=name_, username=username_,
                         hashed_password=hashpw(
-                            password.encode("utf-8"), gensalt()
+                            (password + WATCH_N_LEARN_PEPPER).encode("utf-8"),
+                            gensalt()
                         )
                     )
                 )
