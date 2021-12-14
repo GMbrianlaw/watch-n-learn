@@ -27,12 +27,18 @@
             <nav>
                 <a href="/">Home</a>
                 {% if user is defined() %}
+                    <div class = "left" >
                     <a href="/explore">Explore</a>
                     <a href="/post">Post</a>
+                    </div>
+                    <div class = "right" >
                     <a href="/sign-out">Sign Out</a>
-                {% else %}
+                    </div>
+                {% else %}>
+                    <div class = "right" >
                     <a href="/register">Register</a>
                     <a href="/sign-in">Sign In</a>
+                    </div
                 {% endif %}
             </nav>
             <div>
