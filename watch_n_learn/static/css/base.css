@@ -18,8 +18,36 @@ a {
 
 }
 
+h2 {
+
+    text-align: center;
+
+}
+
+nav {
+
+    background-color: rgba(30, 30, 30, 1);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding-bottom: 30px;
+    padding-left: 40px;
+    padding-right:40px;
+    padding-top: 30px;
+
+}
+
+nav div a {
+
+    color: rgba(240, 240, 240, 1);
+
+}
+
 .navbar_active {
 
+    text-decoration-color: rgba(240, 240, 240, 1);
     text-decoration-line: underline;
 
 }

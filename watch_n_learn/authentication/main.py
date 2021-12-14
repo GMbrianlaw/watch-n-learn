@@ -7,7 +7,7 @@ from fastapi.requests import Request
 from fastapi.responses import Response
 from fastapi_login.fastapi_login import LoginManager
 
-from watch_n_learn.database.main import create_session
+from watch_n_learn.database.main import DatabaseSession, create_session
 from watch_n_learn.database.models import User
 from watch_n_learn.helper.environment import FASTAPI_LOGIN_TOKEN_VALUE
 
@@ -20,14 +20,12 @@ login_manager = LoginManager(
     cookie_name=FASTAPI_LOGIN_COOKIE_NAME
 )
 
+# Synchronous version because 3.7 has issues
+
 @login_manager.user_loader()
-async def load_user(username_: str) -> Optional[User]:
+def login_manager_load_user(username_: str) -> Optional[User]:
 
-    async with contextmanager_in_threadpool(
-        contextmanager(create_session)()
-    ) as session:
-
-        return session.query(User).filter_by(username=username_).first()
+    return DatabaseSession().query(User).filter_by(username=username_).first()
 
 async def get_user(request: Request) -> Optional[User]:
 
@@ -40,6 +38,14 @@ async def get_user(request: Request) -> Optional[User]:
     except HTTPException:
 
         return None
+
+async def load_user(username_: str) -> Optional[User]:
+
+    async with contextmanager_in_threadpool(
+        contextmanager(create_session)()
+    ) as session:
+
+        return session.query(User).filter_by(username=username_).first()
 
 def remove_authentication(response: _BaseResponse) -> _BaseResponse:
 

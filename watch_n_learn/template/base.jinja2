@@ -25,14 +25,23 @@
 
         <header>
             <nav>
-                <a href="/">Home</a>
                 {% if user is defined() %}
-                    <a href="/explore">Explore</a>
-                    <a href="/post">Post</a>
-                    <a href="/sign-out">Sign Out</a>
+                    <div>
+                        <a href="/">Home</a>
+                        <a href="/explore">Explore</a>
+                        <a href="/post">Post</a>
+                    </div>
+                    <div>
+                        <a href="/sign-out">Sign Out</a>
+                    </div>
                 {% else %}
-                    <a href="/register">Register</a>
-                    <a href="/sign-in">Sign In</a>
+                    <div>
+                        <a href="/">Home</a>
+                    </div>
+                    <div>
+                        <a href="/register">Register</a>
+                        <a href="/sign-in">Sign In</a>
+                    </div>
                 {% endif %}
             </nav>
             <div>
@@ -44,6 +53,8 @@
                 {% endfor %}
             </div>
         </header>
+
+        <br>
 
         {% block main %}
         {% endblock main %}
