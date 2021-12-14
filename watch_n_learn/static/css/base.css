@@ -17,3 +17,9 @@ a {
     text-decoration-line: none;
 
 }
+
+.navbar_active {
+
+    text-decoration-line: underline;
+
+}
