@@ -34,9 +34,6 @@ async def explore(request: Request) -> RedirectOrTemplate:
             10
         ).all()
 
-    for post in recent_posts:
-        print(post.isdeleted)
-
     return TemplateResponse(
         "user/explore.jinja2",
         {"request": request, "user": user, "recent_posts": recent_posts}
