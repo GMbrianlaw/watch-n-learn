@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+from sys import version_info
 from typing import Optional, TypeVar
 
 from fastapi.concurrency import contextmanager_in_threadpool
@@ -20,12 +21,22 @@ login_manager = LoginManager(
     cookie_name=FASTAPI_LOGIN_COOKIE_NAME
 )
 
-# Synchronous version because 3.7 has issues
-
 @login_manager.user_loader()
-def login_manager_load_user(username_: str) -> Optional[User]:
+async def load_user(username: str) -> Optional[User]:
 
-    return DatabaseSession().query(User).filter_by(username=username_).first()
+    async with contextmanager_in_threadpool(
+        contextmanager(create_session)()
+    ) as session:
+
+        return session.query(User).filter_by(username=username).first()
+
+if version_info.minor <= 7:
+    # Synchronous version because 3.7 has issues (dev in school)
+    @login_manager.user_loader()
+    def load_user_synchronous(username: str) -> Optional[User]:
+
+        return DatabaseSession().query(User).filter_by(username=username).first(
+        )
 
 async def get_user(request: Request) -> Optional[User]:
 
@@ -38,14 +49,6 @@ async def get_user(request: Request) -> Optional[User]:
     except HTTPException:
 
         return None
-
-async def load_user(username_: str) -> Optional[User]:
-
-    async with contextmanager_in_threadpool(
-        contextmanager(create_session)()
-    ) as session:
-
-        return session.query(User).filter_by(username=username_).first()
 
 def remove_authentication(response: _BaseResponse) -> _BaseResponse:
 
