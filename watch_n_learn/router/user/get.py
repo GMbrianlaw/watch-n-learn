@@ -12,6 +12,7 @@ from watch_n_learn.database.models import Post, User
 from watch_n_learn.helper.template import (
     RedirectOrTemplate, TemplateResponse, flash
 )
+from watch_n_learn.helper.parse import body_as_json
 
 user_get_router = APIRouter()
 
@@ -125,6 +126,15 @@ async def view(request: Request) -> RedirectOrTemplate:
 @user_get_router.get("/delete/{id}")
 async def delete(request: Request) -> RedirectOrTemplate:
     
+    user = await get_user(request)
+
+    if user is None:
+        flash(request, "Sign in to view post")
+
+        return remove_authentication(
+            RedirectResponse("/sign-in", HTTPStatus.FOUND)
+        )
+        
     id_ = request.path_params.get("id")
     
     async with contextmanager_in_threadpool(
@@ -133,6 +143,12 @@ async def delete(request: Request) -> RedirectOrTemplate:
         
         post = session.query(Post).filter_by(id_ = id_).first()
         
+        if user.id_ != post.user.id_:
+
+            flash(request, "Only Delete a Post You Own")
+
+            return RedirectResponse("/", HTTPStatus.FOUND)
+        
         post.isdeleted = True
     
         session.commit()
@@ -140,3 +156,44 @@ async def delete(request: Request) -> RedirectOrTemplate:
     flash(request, "Post Deleted")
     
     return RedirectResponse("/explore", HTTPStatus.FOUND)
+
+@user_get_router.get("/edit/{id}")
+async def edit(request: Request) -> RedirectOrTemplate:
+    
+    user = await get_user(request)
+
+    if user is None:
+        flash(request, "Sign in to view post")
+
+        return remove_authentication(
+            RedirectResponse("/sign-in", HTTPStatus.FOUND)
+        )
+        
+    id_ = request.path_params.get("id")
+    
+    async with contextmanager_in_threadpool(
+        contextmanager(create_session)()
+    ) as session:
+        
+        post = session.query(Post).filter_by(id_ = id_).first()
+        
+        if user.id_ != post.user.id_:
+
+            flash(request, "Only Delete a Post You Own")
+
+            return RedirectResponse("/", HTTPStatus.FOUND)
+
+    async with contextmanager_in_threadpool(
+        contextmanager(create_session)()
+    ) as session:
+        
+        post = session.query(Post).filter_by(id_ = id_).first()
+        
+    return TemplateResponse(
+        "user/edit.jinja2",
+        {
+            "request":request, "post":post,
+
+        }
+    )
+    

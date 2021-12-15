@@ -1,0 +1,32 @@
+{% extends "base.jinja2" %}
+
+{% block css %}
+{% endblock css %}
+
+{% block title %}
+
+    <title>Sign In</title>
+
+{% endblock title %}
+
+{% block main %}
+
+    <main>
+
+        <h2>Edit Post</h2>
+
+        <br>
+
+        <form action="/internal/edit/{{ post.id_ }}" method="post">
+            <label for="title">Title:</label>
+            <input id="title" type="text" value={{ post.title }} name="title">
+            <br>
+            <label for="text">Text:</label>
+            <textarea id="text" type="text" name="text">{{ post.content }}</textarea>
+            <br>
+            <input type="submit" value="Edit">
+        </form>
+
+    </main>
+
+{% endblock main %}

@@ -44,12 +44,16 @@
                     {{ post.user.username }}
                 </a>
             </b>
-
+            <br>
             <b>
-                <a href="/delete/{{ post.id_ }}">Delete Post</a>
+                <a href="/delete/{{ post.id_ }}">Delete</a>
             </b>
 
             <p>{{ post.content }}</p>
+            <br>
+            <b>
+                <a href="/edit/{{ post.id_ }}">Edit</a>
+            </b>
 
         </main>
 
