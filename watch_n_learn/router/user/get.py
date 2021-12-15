@@ -102,13 +102,7 @@ async def view(request: Request) -> RedirectOrTemplate:
     ) as session:
         
         post = session.query(Post).filter_by(id_ = id_).first()
-        
-        if post.isdeleted == True:
-            
-            return RedirectResponse("/", HTTPStatus.FOUND)
-        
-            flash(request, "post is deleted")
-        
+
         if user.id_ != post.user.id_:
 
             return TemplateResponse(
