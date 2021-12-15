@@ -1,6 +1,9 @@
 {% extends "base.jinja2" %}
 
 {% block css %}
+
+    <link rel="stylesheet" href="/static/css/user/post.css">
+
 {% endblock css %}
 
 {% block title %}
@@ -18,13 +21,15 @@
         <br>
 
         <form action="/internal/post" method="post">
-            <label for="title">Title:</label>
-            <input id="title" name="title">
+            <input name="title" placeholder="Title" size="40">
             <br>
-            <label for="content">Content:</label>
-            <textarea name="content" id="content"></textarea>
+            <textarea
+                name="content" placeholder="Write your post ..." rows="18"
+                cols="60"
+            ></textarea>
             <br>
-            <input type="submit" value="Post">
+            <br>
+            <button type="submit">Post</button>
         </form>
 
     </main>

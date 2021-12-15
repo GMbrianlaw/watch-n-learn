@@ -35,6 +35,8 @@ form input {
 
     color: rgba(240, 240, 240, 1);
 
+    outline-width: 0;
+
     padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
