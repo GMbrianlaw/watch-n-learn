@@ -69,7 +69,7 @@ async def sign_in(request: Request) -> RedirectResponse:
 async def register(request: Request) -> RedirectResponse:
 
     body = await body_as_json(
-        request, ["name", "username", "password", "confirm_password"]
+        request, ["name_", "username", "password", "confirm_password"]
     )
 
     user = await get_user(request)
@@ -82,7 +82,7 @@ async def register(request: Request) -> RedirectResponse:
 
         return RedirectResponse("/", HTTPStatus.FOUND)
 
-    name_ = body.get("name")
+    name_ = body.get("name_")
 
     username_ = body.get("username")
 
@@ -97,10 +97,8 @@ async def register(request: Request) -> RedirectResponse:
         if character not in ALLOWED_USERNAME_CHARACTERS:
             flash(
                 request,
-                (
-                    "Username can only contain lowercase characters, digits and"
-                    "punctuation"
-                )
+                "Username can only contain lowercase characters, digits and " +
+                "punctuation"
             )
             return RedirectResponse("/register", HTTPStatus.FOUND)
 

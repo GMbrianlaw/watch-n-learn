@@ -1,6 +1,9 @@
 {% extends "base.jinja2" %}
 
 {% block css %}
+
+    <link rel="stylesheet" href="/static/css/guest/sign_in.css">
+
 {% endblock css %}
 
 {% block title %}
@@ -17,14 +20,14 @@
 
         <br>
 
-        <form action="/internal/sign-in" method="post">
-            <label for="username">Username:</label>
-            <input id="username" name="username">
+        <form action="/internal/sign-in" method="post" autocomplete="off">
+            <input type="text" name="username" placeholder="Username" size="40">
             <br>
-            <label for="password">Password:</label>
-            <input id="password" type="password" name="password">
+            <input
+                type="password" name="password" placeholder="Password" size="40"
+            >
             <br>
-            <input type="submit" value="Sign In">
+            <button type="submit">Login</button>
         </form>
 
     </main>

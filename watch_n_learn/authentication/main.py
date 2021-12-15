@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+from datetime import timedelta
 from sys import version_info
 from typing import Optional, TypeVar
 
@@ -18,7 +19,7 @@ _BaseResponse = TypeVar("_BaseResponse", bound=Response)
 
 login_manager = LoginManager(
     FASTAPI_LOGIN_TOKEN_VALUE, "/internal/sign-in",
-    cookie_name=FASTAPI_LOGIN_COOKIE_NAME
+    cookie_name=FASTAPI_LOGIN_COOKIE_NAME, default_expiry=timedelta(hours=1.5)
 )
 
 @login_manager.user_loader()

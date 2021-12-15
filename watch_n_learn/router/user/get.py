@@ -34,10 +34,10 @@ async def explore(request: Request) -> RedirectOrTemplate:
             10
         ).all()
 
-    return TemplateResponse(
-        "user/explore.jinja2",
-        {"request": request, "user": user, "recent_posts": recent_posts}
-    )
+        return TemplateResponse(
+            "user/explore.jinja2",
+            {"request": request, "user": user, "recent_posts": recent_posts}
+        )
 
 @user_get_router.get("/post")
 async def post_(request: Request) -> RedirectOrTemplate:

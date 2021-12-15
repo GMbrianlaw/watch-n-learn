@@ -18,7 +18,15 @@ a {
 
 }
 
+body {
+
+    background-color: rgba(100, 200, 100, 1);
+
+}
+
 h2 {
+
+    font-size: 30px;
 
     text-align: center;
 
@@ -26,16 +34,26 @@ h2 {
 
 nav {
 
+    align-items: center;
+
     background-color: rgba(30, 30, 30, 1);
 
     display: flex;
 
     justify-content: space-between;
 
-    padding-bottom: 30px;
-    padding-left: 40px;
-    padding-right:40px;
-    padding-top: 30px;
+    padding-bottom: 20px;
+    padding-left: 8vw;
+    padding-right: 8vw;;
+    padding-top: 20px;
+
+}
+
+nav div {
+
+    column-gap: 2.2vw;
+
+    display: flex;
 
 }
 
@@ -43,11 +61,93 @@ nav div a {
 
     color: rgba(240, 240, 240, 1);
 
+    font-size: 18px;
+
+}
+
+nav div > a:hover {
+
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
+    animation-name: navbar-link-hover;
+    animation-timing-function: linear;
+
+}
+
+nav div button {
+
+    background-color: rgba(0, 190, 255, 1);
+
+    border-color: rgba(147, 112, 219, 1);
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 2px;
+
+    color: inherit;
+
+    font-size: inherit;
+
+    padding-bottom: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 10px;
+
+    text-decoration-line: inherit;
+
+}
+
+.messages p {
+
+    animation-duration: 800ms;
+    animation-timing-function: linear;
+    animation-name: message-fade-in;
+
+    background-color: rgba(0, 180, 250, 1);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding-bottom: 12px;
+    padding-left: 4vw;
+    padding-right: 4vw;
+    padding-top: 12px;
+
 }
 
 .navbar_active {
 
     text-decoration-color: rgba(240, 240, 240, 1);
     text-decoration-line: underline;
+
+    text-underline-offset: 3px;
+
+}
+
+@keyframes message-fade-in {
+    
+    0% {
+        
+        opacity: 0;
+        
+    }
+    
+    100% {
+        
+        opacity: 1;
+        
+    }
+    
+}
+
+@keyframes navbar-link-hover {
+
+    100% {
+
+        color: rgba(147, 112, 219, 1);
+
+        text-decoration-color: rgba(147, 112, 219, 1);
+
+    }
 
 }

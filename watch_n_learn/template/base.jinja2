@@ -11,7 +11,7 @@
 
         <link rel="stylesheet" href="/static/css/base.css">
 
-        <script src="/static/javascript/base.js"></script>
+        <script src="/static/javascript/base.js" defer></script>
 
         {% block css %}
         {% endblock css %}
@@ -32,19 +32,25 @@
                         <a href="/post">Post</a>
                     </div>
                     <div>
-                        <a href="/sign-out">Sign Out</a>
+                        <a href="/sign-out">
+                            <button>Sign Out</button>
+                        </a>
                     </div>
                 {% else %}
                     <div>
                         <a href="/">Home</a>
                     </div>
                     <div>
-                        <a href="/register">Register</a>
-                        <a href="/sign-in">Sign In</a>
+                        <a href="/register">
+                            <button>Register</button>
+                        </a>
+                        <a href="/sign-in">
+                            <button>Sign In</button>
+                        </a>
                     </div>
                 {% endif %}
             </nav>
-            <div>
+            <div class="messages">
                 {% for message in get_flashed_messages(request) %}
                     <p>
                         {{ message }}
