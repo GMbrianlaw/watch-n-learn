@@ -30,9 +30,12 @@ async def explore(request: Request) -> RedirectOrTemplate:
     async with contextmanager_in_threadpool(
         contextmanager(create_session)()
     ) as session:
-        recent_posts = session.query(Post).order_by(Post.time.desc()).limit(
+        recent_posts = session.query(Post).filter_by(isdeleted = False).order_by(Post.time.desc()).limit(
             10
         ).all()
+
+    for post in recent_posts:
+        print(post.isdeleted)
 
     return TemplateResponse(
         "user/explore.jinja2",
@@ -100,11 +103,49 @@ async def view(request: Request) -> RedirectOrTemplate:
     async with contextmanager_in_threadpool(
         contextmanager(create_session)()
     ) as session:
+        
+        post = session.query(Post).filter_by(id_ = id_).first()
+        
+        if post.isdeleted == True:
+            
+            return RedirectResponse("/", HTTPStatus.FOUND)
+        
+            flash(request, "post is deleted")
+        
+        if user.id_ != post.user.id_:
 
-        return TemplateResponse(
-            "user/view.jinja2",
-            {
-                "request": request, "user": user,
-                "post": session.query(Post).get(id_)
-            }
-        )
+            return TemplateResponse(
+                "user/view.jinja2",
+                {
+                    "request": request, "user": user,
+                    "post": post
+                }
+            )
+        else:
+            
+            return TemplateResponse(
+                "user/yourpost.jinja2",
+                {
+                    "request": request, "user": user,
+                    "post": post
+                }
+            )
+        
+@user_get_router.get("/delete/{id}")
+async def delete(request: Request) -> RedirectOrTemplate:
+    
+    id_ = request.path_params.get("id")
+    
+    async with contextmanager_in_threadpool(
+        contextmanager(create_session)()
+    ) as session:
+        
+        post = session.query(Post).filter_by(id_ = id_).first()
+        
+        post.isdeleted = True
+    
+        session.commit()
+        
+    flash(request, "Post Deleted")
+    
+    return RedirectResponse("/explore", HTTPStatus.FOUND)
