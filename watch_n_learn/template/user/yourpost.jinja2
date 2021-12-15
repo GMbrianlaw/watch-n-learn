@@ -16,6 +16,8 @@
 
 {% block main %}
 
+    
+
     {% if post is none() %}
 
         <main>
@@ -36,24 +38,35 @@
 
         <main>
 
-            <h2>{{ post.title }}</h2>
+            <div class="center">
 
-            <b>
-                By:
-                <a href="/user/{{ post.user.username }}">
-                    {{ post.user.username }}
-                </a>
-            </b>
-            <br>
-            <b>
-                <a href="/delete/{{ post.id_ }}">Delete</a>
-            </b>
+                <h2>{{ post.title }}</h2>
+                
+                <b>
+                    By:
+                    <a href="/user/{{ post.user.username }}">
+                        {{ post.user.username }}
+                    </a>
+                </b>
 
-            <p>{{ post.content }}</p>
-            <br>
-            <b>
-                <a href="/edit/{{ post.id_ }}">Edit</a>
-            </b>
+                <br>
+                <br>
+
+                <p>{{ post.content }}</p>
+
+                <br>
+                <br>
+
+                <b>
+                    <a href="/delete/{{ post.id_ }}">Delete</a>
+                </b>
+
+                <b>
+                    <a href="/edit/{{ post.id_ }}">&nbsp;&nbsp;&nbsp;Edit</a>
+                </b>
+                
+
+            </div>
 
         </main>
 

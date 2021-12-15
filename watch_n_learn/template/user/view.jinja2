@@ -34,16 +34,23 @@
 
         <main>
 
-            <h2>{{ post.title }}</h2>
+            <div class="center">
 
-            <b>
-                By:
-                <a href="/user/{{ post.user.username }}">
-                    {{ post.user.username }}
-                </a>
-            </b>
+                <h2>{{ post.title }}</h2>
 
-            <p id="content">{{ post.content }}</p>
+                <b>
+                    By:
+                    <a href="/user/{{ post.user.username }}">
+                        {{ post.user.username }}
+                    </a>
+                </b>
+
+                <br>
+                <br>
+
+                <p id="content">{{ post.content }}</p>
+
+            </div>    
 
         </main>
 

@@ -13,12 +13,16 @@
 
     <main>
 
-        <h2>Explore</h2>
+        <link rel="stylesheet" href="/static/css/user/explore.css">
 
-        {% for post in recent_posts %}
-            <a href="/view/{{ post.id_ }}">{{ post.title }}</a>
-            <br>
-        {% endfor %}
+        <h2>Explore</h2>
+        <div class="posts">
+            {% for post in recent_posts %}
+                <a href="/view/{{ post.id_ }}">{{ post.title }}</a>
+                <br>
+                <br>
+            {% endfor %}
+        </div>
 
     </main>
 
