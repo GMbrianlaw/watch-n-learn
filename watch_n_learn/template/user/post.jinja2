@@ -18,13 +18,20 @@
         <br>
 
         <form action="/internal/post" method="post">
-            <label for="title">Title:</label>
-            <input id="title" name="title">
+            <div class = "post-input">
+            
+                <label for="title">Title:</label>
+                <input id="title" name="title">
+                <br>
+                <label for="content">Content:</label>
+                <textarea name="content" id="content"></textarea>
+            </div>
+            
             <br>
-            <label for="content">Content:</label>
-            <textarea name="content" id="content"></textarea>
-            <br>
-            <input type="submit" value="Post">
+            <div class="post-button">
+                <input type="submit" value="Post">
+            </div>
+        
         </form>
 
     </main>
