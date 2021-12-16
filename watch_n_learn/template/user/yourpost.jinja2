@@ -1,0 +1,70 @@
+{% extends "base.jinja2" %}
+
+{% block css %}
+
+    <link rel="stylesheet" href="/static/css/user/view.css">
+
+{% endblock css %}
+
+{% block title %}
+
+    {% if post is none() %}
+
+        <title>Post Not Found</title>
+
+    {% else %}
+
+        <title>{{ post.user.username }} - {{ post.title }}</title>
+
+    {% endif %}
+
+{% endblock title %}
+
+{% block main %}
+
+    {% if post is none() %}
+
+        <main>
+
+            <h2>Post doesn't exist</h2>
+
+        </main>
+
+    {% else %}
+
+        <main>
+
+            <h2>{{ post.title }}</h2>
+
+            <h4>
+                By:
+                <a href="/user/{{ post.user.username }}">
+                    {{ post.user.username }}
+                </a>
+            </h4>
+
+            <br>
+
+            <p id="content">{{ post.content }}</p>
+
+            <br>
+            <br>
+
+            <div style="text-align:center">
+            
+                <b>
+                    <a href="/delete/{{ post.id_ }}">Delete</a>
+                </b>
+
+                <b>
+                    <a href="/edit/{{ post.id_ }}">&nbsp;&nbsp;&nbsp;Edit</a>
+                </b>
+
+            </div>
+
+        </main>
+
+    {% endif %}
+
+
+{% endblock main %}

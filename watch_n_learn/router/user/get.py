@@ -30,7 +30,7 @@ async def explore(request: Request) -> RedirectOrTemplate:
     async with contextmanager_in_threadpool(
         contextmanager(create_session)()
     ) as session:
-        recent_posts = session.query(Post).order_by(Post.time.desc()).limit(
+        recent_posts = session.query(Post).filter_by(isdeleted = False).order_by(Post.time.desc()).limit(
             10
         ).all()
 
@@ -83,6 +83,7 @@ async def user_(request: Request) -> RedirectOrTemplate:
             }
         )
 
+
 @user_get_router.get("/view/{id}")
 async def view(request: Request) -> RedirectOrTemplate:
 
@@ -100,11 +101,98 @@ async def view(request: Request) -> RedirectOrTemplate:
     async with contextmanager_in_threadpool(
         contextmanager(create_session)()
     ) as session:
+        
+        post = session.query(Post).filter_by(id_ = id_).first()
 
-        return TemplateResponse(
-            "user/view.jinja2",
-            {
-                "request": request, "user": user,
-                "post": session.query(Post).get(id_)
-            }
+        if user.id_ != post.user.id_:
+
+            return TemplateResponse(
+                "user/view.jinja2",
+                {
+                    "request": request, "user": user,
+                    "post": post
+                }
+            )
+        else:
+            
+            return TemplateResponse(
+                "user/yourpost.jinja2",
+                {
+                    "request": request, "user": user,
+                    "post": post
+                }
+            )
+        
+@user_get_router.get("/delete/{id}")
+async def delete(request: Request) -> RedirectOrTemplate:
+    
+    user = await get_user(request)
+
+    if user is None:
+        flash(request, "Sign in to view post")
+
+        return remove_authentication(
+            RedirectResponse("/sign-in", HTTPStatus.FOUND)
         )
+        
+    id_ = request.path_params.get("id")
+    
+    async with contextmanager_in_threadpool(
+        contextmanager(create_session)()
+    ) as session:
+        
+        post = session.query(Post).filter_by(id_ = id_).first()
+        
+        if user.id_ != post.user.id_:
+
+            flash(request, "Only delete a post you own")
+
+            return RedirectResponse("/", HTTPStatus.FOUND)
+        
+        post.isdeleted = True
+    
+        session.commit()
+        
+    flash(request, "Post Deleted")
+    
+    return RedirectResponse("/explore", HTTPStatus.FOUND)
+
+@user_get_router.get("/edit/{id}")
+async def edit(request: Request) -> RedirectOrTemplate:
+    
+    user = await get_user(request)
+
+    if user is None:
+        flash(request, "Sign in to view post")
+
+        return remove_authentication(
+            RedirectResponse("/sign-in", HTTPStatus.FOUND)
+        )
+        
+    id_ = request.path_params.get("id")
+    
+    async with contextmanager_in_threadpool(
+        contextmanager(create_session)()
+    ) as session:
+        
+        post = session.query(Post).filter_by(id_ = id_).first()
+        
+        if user.id_ != post.user.id_:
+
+            flash(request, "Only edit a post you own")
+
+            return RedirectResponse("/", HTTPStatus.FOUND)
+
+    async with contextmanager_in_threadpool(
+        contextmanager(create_session)()
+    ) as session:
+        
+        post = session.query(Post).filter_by(id_ = id_).first()
+        
+    return TemplateResponse(
+        "user/edit.jinja2",
+        {
+            "request":request, "post":post,
+
+        }
+    )

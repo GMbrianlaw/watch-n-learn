@@ -2,7 +2,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm.decl_api import declarative_base
 from sqlalchemy.sql.functions import now
 from sqlalchemy.sql.schema import Column, ForeignKey
-from sqlalchemy.sql.sqltypes import DateTime, Integer, String
+from sqlalchemy.sql.sqltypes import DateTime, Integer, String, Boolean
 
 from watch_n_learn.database.main import DATABASE_ENGINE
 
@@ -37,5 +37,7 @@ class Post(Base):
     content = Column("Content", String(4096), nullable=False)
 
     time = Column("Time", DateTime(), nullable=False, server_default=now())
+    
+    isdeleted = Column("Isdeleted", Boolean(), default = False)
 
     user = relationship(User, back_populates="posts")
