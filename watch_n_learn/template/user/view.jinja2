@@ -34,9 +34,8 @@
 
         <main>
 
-            <div class="center">
+            <h2>{{ post.title }}</h2>
 
-<<<<<<< HEAD
             <h4>
                 By:
                 <a href="/user/{{ post.user.username }}">
@@ -45,23 +44,8 @@
             </h4>
 
             <br>
-=======
-                <h2>{{ post.title }}</h2>
->>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
 
-                <b>
-                    By:
-                    <a href="/user/{{ post.user.username }}">
-                        {{ post.user.username }}
-                    </a>
-                </b>
-
-                <br>
-                <br>
-
-                <p id="content">{{ post.content }}</p>
-
-            </div>    
+            <p id="content">{{ post.content }}</p>
 
         </main>
 

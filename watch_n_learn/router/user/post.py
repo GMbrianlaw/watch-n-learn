@@ -79,11 +79,7 @@ async def edit_post(request: Request):
         
         if user.id_ != post.user.id_:
 
-<<<<<<< HEAD
             flash(request, "Only edit a post you own")
-=======
-            flash(request, "You can't edit a post you don't own.")
->>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
 
             return RedirectResponse("/", HTTPStatus.FOUND)
     
@@ -105,8 +101,4 @@ async def edit_post(request: Request):
         
             flash(request, "Post Edited")
         
-<<<<<<< HEAD
     return RedirectResponse("/", HTTPStatus.FOUND)
-=======
-    return RedirectResponse("/", HTTPStatus.FOUND)
->>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
