@@ -2,7 +2,11 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm.decl_api import declarative_base
 from sqlalchemy.sql.functions import now
 from sqlalchemy.sql.schema import Column, ForeignKey
+<<<<<<< HEAD
 from sqlalchemy.sql.sqltypes import DateTime, Integer, String, Boolean
+=======
+from sqlalchemy.sql.sqltypes import Boolean, DateTime, Integer, String
+>>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
 
 from watch_n_learn.database.main import DATABASE_ENGINE
 

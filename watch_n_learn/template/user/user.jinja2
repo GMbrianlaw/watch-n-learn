@@ -43,6 +43,7 @@
             <br>
 
             {% if view_user.posts %}
+<<<<<<< HEAD
                 <section id="posts">
                     {% for post in view_user.posts[:20] %}
                         {% if post.title|length() > 46 %}
@@ -54,6 +55,16 @@
                         {% endif %}
                     {% endfor %}
                 </section>
+=======
+                {% for post in view_user.posts[:8] %}
+                    {% if post.isdeleted == False%}
+                        <a href="/view/{{ post.id_ }}">{{ post.title }}</a>
+                        <br>
+                    {% else %}
+                        <p style="color:grey">{{ post.title }}</p>
+                    {% endif %}
+                {% endfor %}
+>>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
             {% else %}
                 <p>{{ view_user.username }} has no posts</p>
             {% endif %}

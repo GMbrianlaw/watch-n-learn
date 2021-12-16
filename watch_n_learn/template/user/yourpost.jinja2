@@ -1,11 +1,14 @@
 {% extends "base.jinja2" %}
 
+<<<<<<< HEAD
 {% block css %}
 
     <link rel="stylesheet" href="/static/css/user/view.css">
 
 {% endblock css %}
 
+=======
+>>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
 {% block title %}
 
     {% if post is none() %}
@@ -22,6 +25,11 @@
 
 {% block main %}
 
+<<<<<<< HEAD
+=======
+    
+
+>>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
     {% if post is none() %}
 
         <main>
@@ -30,10 +38,22 @@
 
         </main>
 
+<<<<<<< HEAD
+=======
+    {% elif post.isdeleted is true() %}
+
+        <main>
+
+            <h2>Post is Deleted</h2>
+
+        </main>
+
+>>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
     {% else %}
 
         <main>
 
+<<<<<<< HEAD
             <h2>{{ post.title }}</h2>
 
             <h4>
@@ -52,6 +72,27 @@
 
             <div style="text-align:center">
             
+=======
+            <div class="center">
+
+                <h2>{{ post.title }}</h2>
+                
+                <b>
+                    By:
+                    <a href="/user/{{ post.user.username }}">
+                        {{ post.user.username }}
+                    </a>
+                </b>
+
+                <br>
+                <br>
+
+                <p>{{ post.content }}</p>
+
+                <br>
+                <br>
+
+>>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
                 <b>
                     <a href="/delete/{{ post.id_ }}">Delete</a>
                 </b>
@@ -59,6 +100,10 @@
                 <b>
                     <a href="/edit/{{ post.id_ }}">&nbsp;&nbsp;&nbsp;Edit</a>
                 </b>
+<<<<<<< HEAD
+=======
+                
+>>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
 
             </div>
 

@@ -1,14 +1,21 @@
 {% extends "base.jinja2" %}
 
 {% block css %}
+<<<<<<< HEAD
 
     <link rel="stylesheet" href="/static/css/user/post.css">
 
+=======
+>>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
 {% endblock css %}
 
 {% block title %}
 
+<<<<<<< HEAD
     <title>Post</title>
+=======
+    <title>Sign In</title>
+>>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
 
 {% endblock title %}
 
@@ -20,6 +27,7 @@
 
         <br>
 
+<<<<<<< HEAD
         <form action="/internal/edit/{{ post.id_}}" method="post">
             <input name="title" type="text" size="40" value={{post.title}}>
             <br>
@@ -30,6 +38,16 @@
             <br>
             <br>
             <button type="submit">Confirm</button>
+=======
+        <form action="/internal/edit/{{ post.id_ }}" method="post">
+            <label for="title">Title:</label>
+            <input id="title" type="text" value={{ post.title }} name="title">
+            <br>
+            <label for="text">Text:</label>
+            <textarea id="text" type="text" name="text">{{ post.content }}</textarea>
+            <br>
+            <input type="submit" value="Edit">
+>>>>>>> ae88e2e65c3ddbae4ce6ab0892c1db2423475cd7
         </form>
 
     </main>
