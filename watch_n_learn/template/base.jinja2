@@ -10,7 +10,6 @@
         >
 
         <link rel="stylesheet" href="/static/css/base.css">
-        <link rel="stylesheet" href="/static/css/user/explore.css">
 
         <script src="/static/javascript/base.js" defer></script>
 
@@ -53,7 +52,7 @@
             </nav>
             <div class="messages">
                 {% for message in get_flashed_messages(request) %}
-                    <p style="text-align:center">
+                    <p>
                         {{ message }}
                         <span onclick="removeMessage(this);">&times;</span>
                     </p>
