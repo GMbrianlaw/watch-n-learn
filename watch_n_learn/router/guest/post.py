@@ -17,7 +17,7 @@ from watch_n_learn.helper.template import flash
 
 ALLOWED_NAME_CHARACTERS = frozenset(ascii_letters + " ")
 
-ALLOWED_USERNAME_CHARACTERS = frozenset(ascii_lowercase + digits + "_")
+ALLOWED_USERNAME_CHARACTERS = frozenset(ascii_letters + digits + "_")
 
 _punctuation = punctuation
 
