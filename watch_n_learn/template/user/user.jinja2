@@ -1,6 +1,9 @@
 {% extends "base.jinja2" %}
 
 {% block css %}
+
+    <link rel="stylesheet" href="/static/css/user/user.css">
+
 {% endblock css %}
 
 {% block title %}
@@ -33,11 +36,24 @@
 
             <h2>{{ view_user.username }}</h2>
 
+            <br>
+
+            <h3>Posts:</h3>
+
+            <br>
+
             {% if view_user.posts %}
-                {% for post in view_user.posts[:8] %}
-                    <a href="/view/{{ post.id_ }}">{{ post.title }}</a>
-                    <br>
-                {% endfor %}
+                <section id="posts">
+                    {% for post in view_user.posts[:20] %}
+                        {% if post.title|length() > 46 %}
+                            <a href="/view/{{ post.id_ }}">
+                                {{ post.title[:43] }}...
+                            </a>
+                        {% else %}
+                            <a href="/view/{{ post.id_ }}">{{ post.title }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </section>
             {% else %}
                 <p>{{ view_user.username }} has no posts</p>
             {% endif %}

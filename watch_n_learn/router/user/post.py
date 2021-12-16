@@ -45,6 +45,6 @@ async def post(request: Request) -> RedirectResponse:
             session.add(Post(user_id=user.id_, title=title_, content=content_))
             session.commit()
 
-        return RedirectResponse("/", HTTPStatus.FOUND)
+        return RedirectResponse("/explore", HTTPStatus.FOUND)
 
     return RedirectResponse("/post", HTTPStatus.FOUND)

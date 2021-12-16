@@ -27,9 +27,12 @@
         <section id="recent">
             {% for post in recent_posts %}
                 <a href="/view/{{ post.id_ }}">
-                    {{ post.title }} - {{ post.user.username }}
+                    {% if post.title|length() > 27 %}
+                        {{ post.title[:24] }}... - {{ post.user.username }}
+                    {% else %}
+                        {{ post.title }} - {{ post.user.username }}
+                    {% endif %}
                 </a>
-                <br>
             {% endfor %}
         </section>
 

@@ -57,20 +57,23 @@ nav div {
 
 }
 
-nav div a {
+nav div > a {
 
     color: rgba(240, 240, 240, 1);
 
     font-size: 18px;
 
+    transition-duration: 600ms;
+
 }
 
 nav div > a:hover {
 
-    animation-duration: 400ms;
-    animation-fill-mode: forwards;
-    animation-name: navbar-link-hover;
-    animation-timing-function: linear;
+    color: rgba(147, 112, 219, 1);
+
+    text-decoration-color: rgba(147, 112, 219, 1);
+
+    transform: scale(1.1);
 
 }
 
@@ -78,7 +81,7 @@ nav div button {
 
     background-color: rgba(0, 190, 255, 1);
 
-    border-color: rgba(147, 112, 219, 1);
+    border-color: rgba(240, 240, 240, 1);
     border-radius: 20px;
     border-style: solid;
     border-width: 2px;
@@ -94,12 +97,21 @@ nav div button {
 
     text-decoration-line: inherit;
 
+    transition-duration: 600ms;
+
+}
+
+nav div button:hover {
+
+    border-color: rgba(147, 112, 219, 1);
+
+    cursor: pointer;
+
 }
 
 .messages p {
 
     animation-duration: 800ms;
-    animation-timing-function: linear;
     animation-name: message-fade-in;
 
     background-color: rgba(0, 180, 250, 1);
@@ -112,6 +124,12 @@ nav div button {
     padding-left: 4vw;
     padding-right: 4vw;
     padding-top: 12px;
+
+}
+
+.messages span:hover {
+
+    cursor: pointer;
 
 }
 
@@ -138,16 +156,4 @@ nav div button {
         
     }
     
-}
-
-@keyframes navbar-link-hover {
-
-    100% {
-
-        color: rgba(147, 112, 219, 1);
-
-        text-decoration-color: rgba(147, 112, 219, 1);
-
-    }
-
 }

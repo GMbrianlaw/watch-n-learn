@@ -6,6 +6,14 @@ h3 {
 
 #recent {
 
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-start;
+
+    row-gap: 6px;
+
     text-align: center;
 
 }

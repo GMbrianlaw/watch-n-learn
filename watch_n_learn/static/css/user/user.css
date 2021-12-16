@@ -1,0 +1,17 @@
+h3 {
+
+    text-align: center;
+
+}
+
+#posts {
+
+    display: flex;
+
+    flex-direction: column;
+
+    row-gap: 2px;
+
+    text-align: center;
+
+}
