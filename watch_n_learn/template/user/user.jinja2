@@ -45,12 +45,23 @@
             {% if view_user.posts %}
                 <section id="posts">
                     {% for post in view_user.posts[:20] %}
-                        {% if post.title|length() > 46 %}
-                            <a href="/view/{{ post.id_ }}">
-                                {{ post.title[:43] }}...
-                            </a>
+                        {% if post.isdeleted == False%}
+                            {% if post.title|length() > 46 %}
+                                <a href="/view/{{ post.id_ }}">
+                                    {{ post.title[:43] }}...
+                                </a>
+                            {% else %}
+                                <a href="/view/{{ post.id_ }}">{{ post.title }}</a>
+                            {% endif %}
                         {% else %}
-                            <a href="/view/{{ post.id_ }}">{{ post.title }}</a>
+                            {% if post.title|length() > 46 %}
+                                <p style="color:grey">
+                                    {{ post.title[:43] }}...
+                            {% else %}
+                                <p style="color:grey">
+                                    {{ post.title[:43] }}
+                                </p>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </section>
@@ -63,3 +74,4 @@
     {% endif %}
 
 {% endblock main %}
+
